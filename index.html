@@ -31,28 +31,6 @@
     font-family: 'Rajdhani', sans-serif;
     font-weight: 400;
     overflow-x: hidden;
-    cursor: none;
-  }
-
-  /* CUSTOM CURSOR */
-  .cursor {
-    position: fixed;
-    width: 16px; height: 16px;
-    border: 2px solid var(--red);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    transition: transform 0.1s, opacity 0.2s;
-    transform: translate(-50%, -50%);
-  }
-  .cursor-dot {
-    position: fixed;
-    width: 4px; height: 4px;
-    background: var(--red-bright);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
   }
 
   /* RAIN CANVAS */
@@ -194,7 +172,6 @@
     text-decoration: none;
     border-radius: 2px;
     transition: all 0.25s;
-    cursor: none;
     display: inline-block;
   }
   .btn-primary {
@@ -575,7 +552,6 @@
     letter-spacing: 1px;
     border-radius: 2px;
     transition: all 0.25s;
-    cursor: none;
   }
   .contact-link:hover {
     border-color: var(--red);
@@ -733,23 +709,6 @@
     from { width: 0; opacity: 0; }
     to   { width: 120px; opacity: 1; }
   }
-  .intro-skip {
-    position: absolute;
-    bottom: 2rem;
-    right: 2rem;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--gray);
-    letter-spacing: 2px;
-    cursor: pointer;
-    border: 1px solid var(--border);
-    padding: 0.4rem 0.9rem;
-    opacity: 0;
-    animation: fadeIn 0.4s 1.5s ease both;
-    transition: color 0.2s, border-color 0.2s;
-    user-select: none;
-  }
-  .intro-skip:hover { color: var(--red-bright); border-color: var(--red); }
   body.intro-active { overflow: hidden; }
 
   /* FOOTER */
@@ -873,11 +832,8 @@
     <p class="intro-sub">Full-Stack Developer &nbsp;·&nbsp; ML Enthusiast</p>
     <div class="intro-bar"></div>
   </div>
-  <span class="intro-skip" id="intro-skip">SKIP ▶</span>
 </div>
 <canvas id="rain-canvas"></canvas>
-<div class="cursor" id="cursor"></div>
-<div class="cursor-dot" id="cursorDot"></div>
 
 <!-- NAV -->
 <nav>
@@ -905,7 +861,7 @@
     <h1 class="hero-name glitch" data-text="PIYUSH CHAUHAN">
       PIYUSH <span>CHAUHAN</span>
     </h1>
-    <p class="hero-title">MCA Student &nbsp;·&nbsp; Full-Stack Developer &nbsp;·&nbsp; ML Enthusiast</p>
+    <p class="hero-title">MCA Graduate &nbsp;·&nbsp; Full-Stack Developer &nbsp;·&nbsp; ML Enthusiast</p>
     <p class="hero-desc">
       Building intelligent applications from the shadows — REST APIs, ML pipelines, and responsive web interfaces. Based in Greater Noida, Uttar Pradesh.
     </p>
@@ -930,7 +886,7 @@
         <h2 class="section-title">About Me</h2>
         <div class="section-divider"></div>
         <p>
-          MCA candidate at Galgotias University (graduating 2026) with hands-on experience
+          MCA graduate from Galgotias University (2026) with hands-on experience
           across the full stack — from Spring Boot backends and MySQL schemas to TensorFlow
           pipelines and responsive front-ends.
         </p>
@@ -945,7 +901,7 @@
       </div>
       <div class="about-stats reveal">
         <div class="stat-card">
-          <div class="stat-num">6+</div>
+          <div class="stat-num">7+</div>
           <div class="stat-label">Projects Shipped</div>
         </div>
         <div class="stat-card">
@@ -982,6 +938,9 @@
           <span class="skill-tag">Pandas</span>
           <span class="skill-tag">NumPy</span>
           <span class="skill-tag">Matplotlib</span>
+          <span class="skill-tag">FastAPI</span>
+          <span class="skill-tag">RAG / LLM Pipelines</span>
+          <span class="skill-tag">Vector Databases</span>
         </div>
       </div>
       <div class="skill-category reveal">
@@ -1031,8 +990,8 @@
     <div class="section-divider reveal"></div>
     <div class="projects-grid">
 
-      <div class="project-card featured reveal">
-        <span class="project-badge inprogress">In Progress</span>
+      <div class="project-card reveal">
+        <span class="project-badge">Completed</span>
         <div class="project-name">VeYona</div>
         <div class="project-tech">Java · Spring Boot · MySQL · TensorFlow · OpenCV · Firebase</div>
         <div class="project-desc">
@@ -1041,6 +1000,19 @@
             <li>Spring Boot REST API backend on a five-table MySQL schema</li>
             <li>TensorFlow/OpenCV pipeline for visual outfit analysis</li>
             <li>Full CRUD endpoints connecting Firebase-backed mobile front end to Spring Boot service layer</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <span class="project-badge">Completed</span>
+        <div class="project-name">RAG Document Retrieval System</div>
+        <div class="project-tech">Python · FastAPI · OpenAI Embeddings · Vector DB</div>
+        <div class="project-desc">
+          <ul>
+            <li>Built a production-ready Retrieval-Augmented Generation (RAG) pipeline with FastAPI backend and vector-database semantic search for answering questions from custom documents</li>
+            <li>Implemented modular architecture with swappable embedding service (OpenAI / mock), vector store backends (Pinecone, Weaviate, in-memory), and LLM generation layer</li>
+            <li>Features: document chunking with overlap, deterministic pseudo-embeddings for cost-free demos, cosine-similarity semantic search, query caching with TTL, health monitoring, auto-generated OpenAPI docs</li>
           </ul>
         </div>
       </div>
@@ -1214,20 +1186,6 @@
 </footer>
 
 <script>
-/* CUSTOM CURSOR */
-const cursor = document.getElementById('cursor');
-const dot = document.getElementById('cursorDot');
-document.addEventListener('mousemove', e => {
-  cursor.style.left = e.clientX + 'px';
-  cursor.style.top = e.clientY + 'px';
-  dot.style.left = e.clientX + 'px';
-  dot.style.top = e.clientY + 'px';
-});
-document.querySelectorAll('a, button, .skill-tag, .project-card, .cert-item').forEach(el => {
-  el.addEventListener('mouseenter', () => cursor.style.transform = 'translate(-50%,-50%) scale(1.8)');
-  el.addEventListener('mouseleave', () => cursor.style.transform = 'translate(-50%,-50%) scale(1)');
-});
-
 /* RAIN ANIMATION */
 const canvas = document.getElementById('rain-canvas');
 const ctx = canvas.getContext('2d');
@@ -1307,13 +1265,11 @@ document.querySelectorAll('.skills-grid .skill-category, .projects-grid .project
 
 /* INTRO OVERLAY */
 const overlay = document.getElementById('intro-overlay');
-const skipBtn = document.getElementById('intro-skip');
 function dismissIntro() {
   overlay.classList.add('hide');
   document.body.classList.remove('intro-active');
   setTimeout(() => overlay.remove(), 900);
 }
-skipBtn.addEventListener('click', dismissIntro);
 setTimeout(dismissIntro, 3400);
 </script>
 </body>
